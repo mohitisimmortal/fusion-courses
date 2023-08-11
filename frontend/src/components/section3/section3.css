@@ -1,0 +1,95 @@
+.section3 {
+    color: white;
+}
+
+.section3 h3 {
+    text-align: center;
+    font-size: 3.5vmax;
+    margin-bottom: 2rem;
+}
+
+.courses-container img {
+    height: 60vh;
+    width: 30vw;
+    object-fit: cover;
+}
+
+.courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.courses-box {
+    width: 30%;
+    margin-bottom: 2rem;
+}
+
+.courses-box h4 {
+    margin: .6rem 0rem;
+    font-size: 1.5vmax;
+    font-weight: 500;
+}
+
+.viewbtn {
+    padding: .3rem;
+    font-size: 1vmax;
+    cursor: pointer;
+}
+
+.showmorebtn {
+    cursor: pointer;
+    width: 100%;
+    padding: .5rem;
+    margin-top: 2rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.showmorebtn:hover,
+.viewbtn:hover {
+    background-color: var(--color1);
+}
+
+/* media queries */
+@media (max-width: 768px) {
+    .section3 h3 {
+        font-size: 4.5vmax;
+    }
+
+    .courses-box {
+        width: 40%;
+    }
+
+    .courses-container img {
+        width: 40vw;
+    }
+
+    .courses-box h4 {
+        font-size: 3vmax;
+    }
+
+    .viewbtn {
+        font-size: 2vmax;
+    }
+}
+
+@media (max-width: 480px) {
+    .courses-box {
+        width: 100%;
+    }
+
+    .courses-container img {
+        height: 70vh;
+        width: 100%;
+    }
+
+    .courses-box h4 {
+        font-size: 4vmax;
+    }
+
+    .viewbtn {
+        font-size: 3vmax;
+    }
+}

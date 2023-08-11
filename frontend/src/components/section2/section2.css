@@ -1,0 +1,23 @@
+.section2 {
+    display: flex;
+    background: white;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section2-box svg {
+    height: 20vh;
+}
+
+.section2-box h3 {
+    margin: 1rem 0rem;
+}
+
+/* media queries */
+@media(max-width:500px) {
+    .section2 {
+        flex-direction: column;
+    }
+}

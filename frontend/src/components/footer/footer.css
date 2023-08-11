@@ -1,0 +1,29 @@
+footer {
+    background: black;
+    padding: 2rem 7%;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer h3 {
+    font-weight: 300;
+    font-size: 1.8vmax;
+}
+
+
+@media (max-width:768px) {
+    footer h3 {
+        font-size: 2.8vmax;
+    }
+}
+
+@media (max-width:500px) {
+    footer h3 {
+        font-size: 3.2vmax;
+    }
+
+    footer {
+        padding: 1.5rem 3%;
+    }
+}

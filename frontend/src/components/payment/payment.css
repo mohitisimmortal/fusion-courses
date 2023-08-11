@@ -1,0 +1,20 @@
+.paymentContainer {
+    background-color: white;
+}
+
+.paymentInput {
+    border: 1px solid #808080;
+    margin-bottom: 1rem;
+    padding: .5rem;
+}
+
+.paymentFormBtn {
+    padding: .5rem;
+    background-color: black;
+    color: white;
+}
+
+.paymentFormBtn:hover {
+    color: black;
+    background-color: var(--color1);
+}

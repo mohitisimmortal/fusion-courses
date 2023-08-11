@@ -1,0 +1,14 @@
+.adminsignup {
+    background: gray;
+    color: black;
+    height: 100vh;
+}
+
+.adminsignup h2 {
+    margin: 1rem 0rem;
+    cursor: pointer;
+}
+
+.adminsignup h3 {
+    margin: 1rem 0rem;
+}

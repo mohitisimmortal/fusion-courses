@@ -50,8 +50,28 @@ exports.loginUser = async (req, res) => {
 
 exports.getUserCourses = async (req, res) => {
     try {
-        const courses = await Course.find({ published: true });
-        res.json({ courses });
+        // Get page and limit from query parameters, with default values if not provided
+        const page = parseInt(req.query.page) || 1; // Default page is 1
+        const limit = parseInt(req.query.limit) || 2; // Default limit is 10 courses per page
+
+        // Calculate the number of documents to skip
+        const skip = (page - 1) * limit;
+
+        // Fetch the courses with pagination
+        const courses = await Course.find({ published: true })
+            .skip(skip) // Skip the number of documents based on page
+            .limit(limit); // Limit the number of documents returned
+
+        // Optionally, get the total count of published courses for pagination metadata
+        const totalCourses = await Course.countDocuments({ published: true });
+
+        // Send the response with courses and pagination info
+        res.json({
+            courses,
+            currentPage: page,
+            totalPages: Math.ceil(totalCourses / limit),
+            totalCourses,
+        });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }

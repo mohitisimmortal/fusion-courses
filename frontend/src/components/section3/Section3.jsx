@@ -7,26 +7,29 @@ import userurl from '../../userurl';
 
 const Section3 = () => {
     const [courses, setCourses] = useState([]);
-    const [coursesToShow, setCoursesToShow] = useState(6); // Number of courses to display initially
     const navigate = useNavigate()
+    const [page, setPage] = useState(1); // Start with the first page
+    const [totalCourses, setTotalCourses] = useState(0); // Total number of courses
 
     const fetchCourses = async () => {
         try {
-            const response = await axios.get(`${userurl}/courses`);
-            setCourses(response.data.courses);
+            const response = await axios.get(`${userurl}/courses?page=${page}&limit=6`);
+            setCourses((prevCourses) => [...prevCourses, ...response.data.courses]);
+            setTotalCourses(response.data.totalCourses);
         } catch (error) {
-            // console.log('Error fetching courses:', error);
-            handleApiError(error)
+            handleApiError(error);
         }
     };
 
     useEffect(() => {
         fetchCourses();
-    }, []);
+    }, [page]);
+
 
     const handleShowMore = () => {
-        // Increase the number of courses to show by 6
-        setCoursesToShow((prevCoursesToShow) => prevCoursesToShow + 6);
+        if (courses.length < totalCourses) {
+            setPage((prevPage) => prevPage + 1);
+        }
     };
 
     // Function to navigate to the course details page
@@ -41,7 +44,7 @@ const Section3 = () => {
             </div>
 
             <div className="courses-container">
-                {courses.slice(0, coursesToShow).map((course) => (
+                {courses.map((course) => (
                     <div className="courses-box" key={course._id}>
                         <div>
                             <img src={course.imageLink} alt={course.title} />
@@ -52,13 +55,15 @@ const Section3 = () => {
                 ))}
             </div>
 
-            {coursesToShow < courses.length && (
-                <div>
-                    <button className='showmorebtn' onClick={handleShowMore}>
-                        Show more...
-                    </button>
-                </div>
-            )}
+            {courses.length < totalCourses &&
+                (
+                    <div>
+                        <button className='showmorebtn' onClick={handleShowMore}>
+                            Show more...
+                        </button>
+                    </div>
+                )
+            }
         </section>
     );
 };

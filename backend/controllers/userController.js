@@ -50,12 +50,21 @@ exports.loginUser = async (req, res) => {
 
 exports.getUserCourses = async (req, res) => {
     try {
-        const courses = await Course.find({ published: true });
-        res.json({ courses });
+        const page = parseInt(req.query.page) || 1; // Get page number from query params (default to 1)
+        const limit = parseInt(req.query.limit) || 6; // Get limit from query params (default to 6)
+
+        const courses = await Course.find({ published: true })
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        const totalCourses = await Course.countDocuments({ published: true });
+        console.log(totalCourses);
+        res.json({ courses, totalCourses });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 exports.getSingleCourse = async (req, res) => {
     try {

@@ -21,6 +21,8 @@ const Checkout = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
+
         try {
             const token = localStorage.getItem('userToken'); // Get the user token from localStorage
             if (!token) {
@@ -28,7 +30,12 @@ const Checkout = () => {
                 alert('Please log in first');
                 return;
             }
-
+            if (!elements.getElement(CardNumberElement)?._complete ||
+                !elements.getElement(CardExpiryElement)?._complete ||
+                !elements.getElement(CardCvcElement)?._complete) {
+                alert("Please fill in all required card details before proceeding.");
+                return;
+            }
             setProcessingText('Processing...');
 
             const { data } = await axios.post(`${paymenturl}/payment/${courseId}`, {}, {
@@ -77,19 +84,21 @@ const Checkout = () => {
     return (
         <>
             <section className="paymentContainer">
-                <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
+                <form className="paymentForm" onSubmit={submitHandler}>
                     <Typography style={{ marginBottom: '.3rem' }}>Put your card info</Typography>
                     <div>
                         <CreditCardIcon />
-                        <CardNumberElement className="paymentInput" />
+                        <CardNumberElement className="paymentInput" id='cardID' />
+                        <p style={{ marginTop: '-10px', marginBottom: '20px', fontSize: '12px' }}>*Use test card number- 4242424242424242</p>
+
                     </div>
                     <div>
                         <EventIcon />
-                        <CardExpiryElement className="paymentInput" />
+                        <CardExpiryElement className="paymentInput" id='cardExpiry' />
                     </div>
                     <div>
                         <VpnKeyIcon />
-                        <CardCvcElement className="paymentInput" />
+                        <CardCvcElement className="paymentInput" id='cardCvc' />
                     </div>
                     <input
                         type="submit"

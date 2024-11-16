@@ -22,7 +22,7 @@ exports.processPayment = async (req, res) => {
 
         const myPayment = await stripe.paymentIntents.create({
             amount: coursePrice * 100,
-            currency: "inr",
+            currency: "usd",
             metadata: {
                 company: "fusionCourses",
                 courseId: courseId,
